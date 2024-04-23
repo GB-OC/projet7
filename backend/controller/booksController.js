@@ -8,13 +8,11 @@ exports.createBook = (req, res, next) => {
   delete bookObject._id;
   delete bookObject._userId;
 
-  console.log(bookObject);
   const book = new books({
     ...bookObject,
     userId: req.auth.userId,
     imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : bookObject.imageUrl,
   });
-  console.log(book);
   book.save()
     .then(() => res.status(201).json({ message: 'Livre créé avec succès' }))
     .catch(error => res.status(400).json({ error }));
@@ -64,7 +62,7 @@ exports.deleteBook = (req, res, next) => {
 exports.getTopRatedBooks = (req, res, next) => {
   books.find()
       .sort({ averageRating: -1 })
-      .limit(10)
+      .limit(3)
       .then(books => res.status(200).json(books))
       .catch(error => res.status(400).json({ error }));
 };
