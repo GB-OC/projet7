@@ -1,5 +1,7 @@
 //app.js
 
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const booksRoutes = require('./routes/booksRoutes'); 
@@ -13,7 +15,7 @@ const app = express();
 app.use(express.json());
 
 // Connexion à MongoDB
-mongoose.connect('mongodb+srv://yepyep:OXI4JRPrXFknNLwZ@cluster0.yc2tilh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+mongoose.connect(`mongodb+srv://yepyep:${process.env.MONGODB_TOKEN}@cluster0.yc2tilh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -36,4 +38,3 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 
 module.exports = app;
-

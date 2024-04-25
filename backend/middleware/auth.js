@@ -1,6 +1,5 @@
 //auth.js situé dans backend/middleware/
 
-
 const jwt = require('jsonwebtoken');
  
 module.exports = (req, res, next) => {
